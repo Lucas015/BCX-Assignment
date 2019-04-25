@@ -1,0 +1,39 @@
+﻿@model WebApi.Models.DailyTask
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DailyTask</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AssignedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDetail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TaskDetail.TaskName)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DailyTaskId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

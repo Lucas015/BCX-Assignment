@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApi.Models.DailyTask>
+
+@{
+    ViewData["Title"] = "GetTaskByEmployee";
+}
+
+@using (Html.BeginForm("GetTaskByEmployee", "DailyTasks", FormMethod.Get))
+{
+    <fieldset>
+        <legend>Search criteria</legend>
+        @Html.Label("StartDate", "Start Date:")
+        <input class="startdate" id="startdate" name="startdate" type="date" value="">
+        @Html.Label("enddate", "End Date:")
+        <input class="startdate" id="enddate" name="enddate" type="date" value="">
+        <input type="submit" class="btn btn-primary" value="Apply" />
+    </fieldset>
+}
+
+@{decimal totalPayment = 0;}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HourlyRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssignedOn)
+            </th>
+
+            <th>
+                Total Task Cost
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDetail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            decimal TotalTaskCost = item.HourlyRate * item.TaskTime;
+
+            totalPayment += TotalTaskCost;
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HourlyRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedOn)
+                </td>
+                <td>
+                    @Html.Encode(TotalTaskCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskDetail.TaskName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DailyTaskId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DailyTaskId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DailyTaskId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="form-group">
+    <label class="control-label">Total payment</label>
+    @Html.TextBox("Total", "R " + totalPayment.ToString("n0"), new { @class = "alert alert-info", @readonly = "readonly" })
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApi.Models.TaskDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDuration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskDuration)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TaskId}) |
+                @Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TaskId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
